@@ -65,11 +65,8 @@ int Svertka(int size, int a[], int b[], int c[], int s1, int s2, int C) {
 				{
 					C++;
                     if(i == (k+j)) 
-					{
-                        if(c[i] != 0)
-							C++;
+		    {
                         c[i] += a[k] * b[j];
-                    //cout <<"c[i] = " << c[i]<<endl;
                     }
                 }
             }
