@@ -1,0 +1,46 @@
+def knapsack(v, w, W):
+    # `T[i][j]` хранит максимальное значение веса рюкзака меньше
+    #, чем равно `j` с учетом только первых элементов `i`.
+    T = [0 for x in range(W+1)]
+    wt = w
+    wt.append(W+1)
+    
+    # сделать для i-го предмета
+    for i in range(1, len(v) + 1):
+        
+        # учитывает все веса от 0 до максимальной емкости `W`
+        for j in range(wt[i-1], wt[i]):
+            maxV = []
+            # не включает i-й элемент, если `j-w[i-1]` отрицательное
+            for k in range(1, i+1):
+                maxV.append(T[j - w[k - 1]] + v[k - 1])
+            T[j] = max(maxV)
+        print("взял: ", T[j])
+    print(T)
+    # возвращает максимальное значение
+    return T
+ 
+def FindCountValue(T, s, k, ans):
+    while(T[k] != 0):
+        for i in range(0, s):
+            if (T[k] == T[k - w[i]] + v[i]):
+                ans[i] += 1
+                k -= w[i]
+                break
+            
+ 
+if __name__ == '__main__':
+    v = [9, 13, 21]
+    w = [5, 7, 11]
+    W =24
+    print("Стоимость предметов = ",v)
+    print("Вес предметов = ",w)
+    print("Вместительность рюкзака = ",W)
+    T = knapsack(v, w, W)
+    print('Стоимость рюкзака = ', T[W])
+    ans = [0] * len(v)
+    FindCountValue(T, len(v), len(T) - 1, ans)
+    
+    
+    for i in range(len(ans)):
+        print(i + 1, ":", "count: ", ans[i], "Value:", ans[i] * v[i])
